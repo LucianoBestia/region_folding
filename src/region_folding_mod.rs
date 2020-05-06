@@ -19,8 +19,26 @@ pub struct Fold {
     pub kind: FoldKind,
 }
 
+#[derive(Debug, PartialEq, Eq)]
+pub enum FoldKind {
+    Comment,
+    Imports,
+    Mods,
+    Block,
+    Region,
+}
+
 pub fn get_vec_of_fold(){
     let code_text = unwrap!(fs::read_to_string("sample_code.txt"));
     // find with regex all start end end region in a vec
 
+}
+
+#[cfg(test)]
+mod tests{
+    use super::*;
+    #[cfg(test)]
+    pub fn get_vec_of_fold_for_file_sample_code{
+
+    }
 }
