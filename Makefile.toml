@@ -1,0 +1,215 @@
+# region_folding/Makefile.toml
+# https://github.com/sagiegurari/cargo-make/blob/master/src/lib/Makefile.stable.toml
+
+[config]
+skip_core_tasks = true
+
+#region: public callable tasks/flows
+
+    [tasks.default]
+    description = "show list of public callable tasks"
+    clear = true
+    dependencies = [
+        "help_command_order"
+    ]
+
+    [tasks.dev]
+    description = "cargo build development"
+    clear = true
+    dependencies = [
+        "build_dev",
+    ]
+
+    [tasks.release]
+    description = "cargo build release"
+    clear = true
+    dependencies = [
+		# Binaries version is date
+        "lmake_version_from_date",
+        # Library version is semver
+        # "semver_increment_patch",					  
+        "build_release",
+    ]
+
+    [tasks.run_rel1]
+    description = "run target/release/${CARGO_MAKE_CRATE_NAME}"
+    clear = true
+    script = [
+        "echo target/release/${CARGO_MAKE_CRATE_NAME}",
+        "target/release/${CARGO_MAKE_CRATE_NAME} ",
+    ]
+
+    [tasks.run_rel2]
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} --help"
+    clear = true
+    script = [
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} --help",
+        "target/release/${CARGO_MAKE_CRATE_NAME} --help",
+    ]
+
+    [tasks.run_rel3]
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} --increment=patch"
+    clear = true
+    script = [
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor",
+        "target/release/${CARGO_MAKE_CRATE_NAME} --increment=patch",
+    ]
+
+    [tasks.run_rel4]
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor"
+    clear = true
+    script = [
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor",
+        "target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor",
+    ]
+
+    [tasks.run_rel5]
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} --increment=blahblah"
+    clear = true
+    script = [
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} --increment=blahblah",
+        "target/release/${CARGO_MAKE_CRATE_NAME} --increment=blahblah",
+    ]
+
+    [tasks.doc]
+    description = "create docs from comments"
+    clear = true
+    dependencies = [
+		"include_readme",
+        "cargo_doc",
+		"doc_copy",
+    ]
+    
+    [tasks.sshadd]
+    description = "adds identity to ssh-agent for git and publish operations"
+    clear = true
+    script = [
+        "ssh-add /home/luciano/.ssh/luciano_googlecloud",
+        "ssh-add /home/luciano/.ssh/lucianobestia_mac",
+        "ssh-add -l",
+    ]
+
+    [tasks.gitpush]
+    description = "push the commits to github, uses ssh agent"
+    clear = true
+    script = [
+        "git push",
+    ]
+
+	[tasks.crates_io_dry_run]
+	clear = true
+	description = "prepare before publishing to crates.io with dry-run"
+	command = "cargo"
+	args = ["publish","--dry-run"]
+
+    [tasks.crates_io_publish]
+	clear = true
+	description = "gittag and publish to crates.io"
+    dependencies = [
+		"gittag",
+        "private_crates_io_publish",
+    ]
+
+    [tasks.increment_minor]
+    description = "increments semver minor"
+    clear = true
+    script = [
+        "lmake_semver --increment=minor",
+    ]
+
+# endregion
+
+[tasks.help_command_order]
+clear = true
+private = true
+description = "help developer to understand the order of exec commands"
+script= [
+"echo ",
+"echo ORDER OF EXECUTING MAKE TASKS:",
+"echo     clear - clear the screen",
+"echo     cargo make - this list",
+"echo 01. ..... change your code in the editor",
+"echo 02. cargo make dev - build developer versions",
+"echo 03. ......run the developer build. Cargo make tasks LIST is below.",
+"echo 04. cargo make test - test the test code",
+"echo 05. cargo make increment_minor - if needed increment semver minor",
+"echo 06. cargo make release - build release version, increment semver patch incargo.toml",
+"echo 07. ......run the release build. Cargo make tasks LIST is below.",
+"echo ",
+"echo 08. cargo make doc - copies from cargo.toml to readme.md and from readme.md to main.rs or lib.rs, generates doc and copies to docs folder.",
+"echo 09. ..... run a git commit",
+"echo 10. cargo make sshadd - run only once - adds identity to ssh-agent for git and publish",
+"echo 11. cargo make gitpush - git push",
+"echo 12. cargo make crates_io_dry_run - prepare publishing for crates.io",
+"echo 13. cargo make crates_io_publish - gittag and publish to crates.io",
+"echo ",
+"echo LIST RUN WITH ARGUMENTS - release build",
+"echo cargo make run_rel1 - target/release/${CARGO_MAKE_CRATE_NAME}",
+"echo "
+]
+
+[tasks.build_dev]
+clear = true
+private = true
+description = "build in dev/debug mode"
+command = "cargo"
+args = ["build"]
+
+# Libraries version are semver, but binaries are dates.
+[tasks.semver_increment_patch]
+clear = true
+private = true
+description = "increment semver patch"
+script= ["lmake_semver --increment=patch"]
+
+# Binaries version are dates, but Libraries are semver.
+# For PWA must update version also in the service_worker.js.
+[tasks.lmake_version_from_date]
+description = "in cargo.toml change version to today date"
+clear = true
+private = true
+script= ["lmake_version_from_date"]
+
+[tasks.build_release]
+description = "build for release"
+clear = true
+private = true
+command = "cargo"
+args = ["build","--release"]
+
+[tasks.include_readme]
+clear = true
+private = true
+description = "copy the content of readme.md into *.rs comments (for the docs)"
+script= ["lmake_readme"]
+
+[tasks.cargo_doc]
+clear = true
+private = true
+description = "call cargo doc"
+command="cargo"
+args=["doc","--no-deps","--document-private-items"]
+
+[tasks.doc_copy]
+clear = true
+private = true
+description = "copy doc folder as docs (out of folder target), so it can be git comitted"
+script = [
+    "\\rsync -avz --delete-after target/doc/*  docs/"
+]
+
+[tasks.gittag]
+clear = true
+private = true
+description = "git tag -f -a v${CARGO_MAKE_CRATE_VERSION} -m version_${CARGO_MAKE_CRATE_VERSION}"
+script = [
+	"echo git tag -f -a v${CARGO_MAKE_CRATE_VERSION} -m version_${CARGO_MAKE_CRATE_VERSION}",
+    "git tag -f -a v${CARGO_MAKE_CRATE_VERSION} -m version_${CARGO_MAKE_CRATE_VERSION}"
+]
+
+[tasks.private_crates_io_publish]
+clear = true
+private = true
+description = "publish to crates.io."
+command = "cargo"
+args = ["publish"]
