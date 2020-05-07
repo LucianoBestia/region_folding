@@ -238,6 +238,7 @@
 <span id="238">238</span>
 <span id="239">239</span>
 <span id="240">240</span>
+<span id="241">241</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! region_folding_mod.rs</span>
 
@@ -398,8 +399,9 @@
 <span class="comment">// integration testing doesn&#39;t work nice for binary projects (main)</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">test</span> {
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fs</span>;
     <span class="doccomment">/// test empty code</span>
     <span class="attribute">#[<span class="ident">test</span>]</span>

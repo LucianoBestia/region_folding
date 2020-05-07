@@ -3,12 +3,12 @@
 <strong>proof of concept for region folding in rust-analyzer and VSCode</strong></p>
 <h2 id="vscode-and-rust-analyzer" class="section-header"><a href="#vscode-and-rust-analyzer">VSCode and rust-analyzer</a></h2>
 <p>I would like to have region_folding in VSCode for rust.<br />
-Rust-analyzer already prepares some Fold structs for folding:
-<code>rust-analyzer\crates\ra_ide\src\folding_ranges.rs</code>
+Rust-analyzer already prepares some Fold structs for folding:<br />
+<code>rust-analyzer\crates\ra_ide\src\folding_ranges.rs</code><br />
 <code>fn folding_ranges(file: &amp;SourceFile) -&gt; Vec&lt;Fold&gt;</code></p>
-<p>Maybe it would be possible to add also region_folding.
-But touching a complex project like rust-analyzer is not easy to start.
-I will make a CLI just as proof-of-concept.
+<p>Maybe it would be possible to add also region_folding.<br />
+But touching a complex project like rust-analyzer is not easy to start.<br />
+I will make a CLI just as proof-of-concept.<br />
 Maybe somebody more experienced could add this to rust-analyzer.</p>
 <p>List of prepared make tasks for development: build, run, doc, publish,...<br />
 <code>clear; cargo make test</code><br />
