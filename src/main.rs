@@ -1,45 +1,39 @@
 // region: lmake_readme include "readme.md" //! A
-//! # lmake_semver  
-//!
-//! version: 0.1.6  date: 2020-04-24 authors: Luciano Bestia  
-//! **Increments the patch or minor version in cargo.toml.**
-//!
-//!
-//! ## Install
-//!
-//! `cargo install lmake_semver`  
-//!
-//! ## Run
-//!
-//! Run it with this arguments:  
-//!
-//! `lmake_semver --increment=patch`  
-//! `lmake_semver --increment=minor`  
-//!
-//! ## Development
-//!
+//! # region_folding  
+//! 
+//! version: 2020.507.1558  date: 2020-05-07 authors: Luciano Bestia  
+//! **proof of concept for region folding in rust-analyzer and VSCode**
+//! 
+//! 
+//! ## VSCode and rust-analyzer
+//! 
+//! I would like to have region_folding in VSCode for rust.  
+//! Rust-analyzer already prepares some Fold structs for folding:
+//! `rust-analyzer\crates\ra_ide\src\folding_ranges.rs`
+//! `fn folding_ranges(file: &SourceFile) -> Vec<Fold>`
+//! 
+//! Maybe it would be possible to add also region_folding.
+//! But touching a complex project like rust-analyzer is not easy to start.
+//! I will make a CLI just as proof-of-concept.
+//! Maybe somebody more experienced could add this to rust-analyzer.
+//! 
 //! List of prepared make tasks for development: build, run, doc, publish,...  
-//! `clear; cargo make`  
-//!
-//! ## Tasks in Makefile.toml
-//!
-//! Libraries use semver. On every build release you can increment patch.  
-//!
-//! ```toml
-//! [tasks.release]
-//! description = "cargo build release"
-//! clear = true
-//! dependencies = [
-//!     "semver_increment_patch",
-//!     "build_release",
-//! ]
-//!
-//! [tasks.semver_increment_patch]
-//! clear = true
-//! private = true
-//! description = "increment semver patch"
-//! script= ["lmake_semver --increment=patch"]
-//! ```
+//! `clear; cargo make test`  
+//! `clear; cargo make release`  
+//! `clear; cargo make run_rel1`  
+//! `clear; cargo make run_rel2`  
+//! `clear; cargo make run_rel3`  
+//! `clear; cargo make run_rel4`  
+//! `clear; cargo make run_rel5`  
+//! `clear; cargo make run_rel6`  
+//! 
+//! ## cargo crev reviews and advisory
+//! 
+//! It is recommended to always use [cargo-crev](https://github.com/crev-dev/cargo-crev)  
+//! to verify the trustworthiness of each of your dependencies.  
+//! Please, spread this info.  
+//! On the web use this url to read crate reviews. Example:  
+//! <https://bestia.dev/cargo_crev_web/query/num-traits>  
 // endregion: lmake_readme include "readme.md" //! A
 
 // region: Clippy

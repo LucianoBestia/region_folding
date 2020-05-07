@@ -24,7 +24,15 @@ skip_core_tasks = true
     clear = true
     dependencies = [
         "build_dev",
-        "post_build_dev",                               
+        "post_build_dev",
+    ]
+
+    [tasks.test]
+    description = "cargo test"
+    clear = true
+    script = [
+        "echo $ cargo test",
+        "cargo test",
     ]
 
     [tasks.release]
@@ -107,7 +115,7 @@ skip_core_tasks = true
     description = "cargo audit - for warning dependencies"
     clear = true
     dependencies = [ "cargo_audit",]
-                                    
+
     [tasks.doc]
     description = "cargo doc - create docs from doc comments"
     clear = true

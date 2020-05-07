@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["enable_ansi_support",""],["main","The program starts here."]],"mod":[["region_folding_mod","region_folding_mod.rs"]]});

@@ -157,8 +157,9 @@ pub fn print_vec(vec_of_fold: Vec<Fold>, code_text: &str) -> String {
 // integration testing doesn't work nice for binary projects (main)
 #[cfg(test)]
 mod test {
+    #[allow(unused_imports)]
     use super::*;
-
+    #[allow(unused_imports)]
     use std::fs;
     /// test empty code
     #[test]
