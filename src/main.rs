@@ -137,16 +137,7 @@ fn main() {
         let code_text = unwrap!(fs::read_to_string(file_name));
         let vec_of_fold = region_folding_mod::get_vec_of_fold(&code_text);
         //println!("{:#?}", vec_of_fold);
-        use crate::region_folding_mod::print_to_end_of_line;
-        for fold in vec_of_fold {
-            println!(
-                "{:05} {:05} :  {}   {}",
-                usize::from(fold.range.start()),
-                usize::from(fold.range.end()),
-                print_to_end_of_line(&code_text, fold.range.start().into()).trim(),
-                print_to_end_of_line(&code_text, fold.range.end().into()).trim(),
-            );
-        }
+        println!("{}", region_folding_mod::print_vec(vec_of_fold, &code_text));
     }
 }
 

@@ -17,4 +17,11 @@ I will make a CLI just as proof-of-concept.
 Maybe somebody more experienced could add this to rust-analyzer.
 
 List of prepared make tasks for development: build, run, doc, publish,...  
-`clear; cargo make`  
+`clear; cargo make test`  
+`clear; cargo make release`  
+`clear; cargo make run_rel1`  
+`clear; cargo make run_rel2`  
+`clear; cargo make run_rel3`  
+`clear; cargo make run_rel4`  
+`clear; cargo make run_rel5`  
+`clear; cargo make run_rel6`  
