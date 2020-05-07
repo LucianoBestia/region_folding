@@ -18,6 +18,10 @@ But touching a complex project like rust-analyzer is not easy to start.
 I will make a CLI just as proof-of-concept.  
 Maybe somebody more experienced could add this to rust-analyzer.  
 
+[comment]: # (lmake_readme exclude start A)  
+
+## Development
+
 List of prepared make tasks for development: build, run, doc, publish,...  
 `clear; cargo make test`  
 `clear; cargo make release`  
@@ -35,3 +39,5 @@ to verify the trustworthiness of each of your dependencies.
 Please, spread this info.  
 On the web use this url to read crate reviews. Example:  
 <https://bestia.dev/cargo_crev_web/query/num-traits>  
+
+[comment]: # (lmake_readme exclude end A)  
