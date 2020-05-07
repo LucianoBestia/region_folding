@@ -106,7 +106,7 @@ checksum = "7fe5bd57d1d7414c6b5ed48563a2c855d995ff777729dcd91c369ec7fea395ae"
 
 [[package]]
 name = "region_folding"
-version = "2020.506.1055"
+version = "2020.507.1207"
 dependencies = [
  "ansi_term 0.12.1",
  "clap",

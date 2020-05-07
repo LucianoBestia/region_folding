@@ -1,30 +1,30 @@
 // region: lmake_readme include "readme.md" //! A
 //! # lmake_semver  
-//! 
+//!
 //! version: 0.1.6  date: 2020-04-24 authors: Luciano Bestia  
 //! **Increments the patch or minor version in cargo.toml.**
-//! 
-//! 
+//!
+//!
 //! ## Install
-//! 
+//!
 //! `cargo install lmake_semver`  
-//! 
+//!
 //! ## Run
-//! 
+//!
 //! Run it with this arguments:  
-//! 
+//!
 //! `lmake_semver --increment=patch`  
 //! `lmake_semver --increment=minor`  
-//! 
+//!
 //! ## Development
-//! 
+//!
 //! List of prepared make tasks for development: build, run, doc, publish,...  
 //! `clear; cargo make`  
-//! 
+//!
 //! ## Tasks in Makefile.toml
-//! 
+//!
 //! Libraries use semver. On every build release you can increment patch.  
-//! 
+//!
 //! ```toml
 //! [tasks.release]
 //! description = "cargo build release"
@@ -33,7 +33,7 @@
 //!     "semver_increment_patch",
 //!     "build_release",
 //! ]
-//! 
+//!
 //! [tasks.semver_increment_patch]
 //! clear = true
 //! private = true
@@ -103,14 +103,14 @@
 // region: mod, extern and use statements
 mod region_folding_mod;
 
-use clap::*;
-//use unwrap::unwrap;
+//use clap::*;
+use unwrap::unwrap;
 
 #[allow(unused_imports)]
 use ansi_term::Colour::{Green, Red, Yellow};
-//use ansi_term::Style;
-use clap::App;
+use clap::{App, Arg};
 use std::env;
+use std::fs;
 // endregion
 
 #[allow(clippy::print_stdout, clippy::integer_arithmetic)]
@@ -125,10 +125,29 @@ fn main() {
         .version(env!("CARGO_PKG_VERSION"))
         .author(env!("CARGO_PKG_AUTHORS"))
         .about(env!("CARGO_PKG_DESCRIPTION"))
+        .arg(
+            Arg::with_name("file_name")
+                .required(true)
+                .value_name("file_name")
+                .help("sample1_code.txt"),
+        )
         .get_matches();
 
-        let vec_of_fold = region_folding_mod::get_vec_of_fold();
-        println!("{:?}", vec_of_fold);
+    if let Some(file_name) = arguments.value_of("file_name") {
+        let code_text = unwrap!(fs::read_to_string(file_name));
+        let vec_of_fold = region_folding_mod::get_vec_of_fold(&code_text);
+        //println!("{:#?}", vec_of_fold);
+        use crate::region_folding_mod::print_to_end_of_line;
+        for fold in vec_of_fold {
+            println!(
+                "{:05} {:05} :  {}   {}",
+                usize::from(fold.range.start()),
+                usize::from(fold.range.end()),
+                print_to_end_of_line(&code_text, fold.range.start().into()).trim(),
+                print_to_end_of_line(&code_text, fold.range.end().into()).trim(),
+            );
+        }
+    }
 }
 
 // region: different function code for Linux and Windows

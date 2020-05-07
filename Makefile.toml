@@ -31,7 +31,7 @@ skip_core_tasks = true
         "build_release",
     ]
 
-    [tasks.run_rel1]
+    [tasks.run_rel0]
     description = "run target/release/${CARGO_MAKE_CRATE_NAME}"
     clear = true
     script = [
@@ -39,36 +39,52 @@ skip_core_tasks = true
         "target/release/${CARGO_MAKE_CRATE_NAME} ",
     ]
 
-    [tasks.run_rel2]
-    description = "target/release/${CARGO_MAKE_CRATE_NAME} --help"
+    [tasks.run_rel1]
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} sample1_no_regions.txt"
     clear = true
     script = [
-        "echo target/release/${CARGO_MAKE_CRATE_NAME} --help",
-        "target/release/${CARGO_MAKE_CRATE_NAME} --help",
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} sample1_no_regions.txt",
+        "target/release/${CARGO_MAKE_CRATE_NAME} sample1_no_regions.txt",
+    ]
+
+    [tasks.run_rel2]
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} sample2_not_nested.txt"
+    clear = true
+    script = [
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} sample2_not_nested.txt",
+        "target/release/${CARGO_MAKE_CRATE_NAME} sample2_not_nested.txt",
     ]
 
     [tasks.run_rel3]
-    description = "target/release/${CARGO_MAKE_CRATE_NAME} --increment=patch"
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} sample3_one_nested.txt"
     clear = true
     script = [
-        "echo target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor",
-        "target/release/${CARGO_MAKE_CRATE_NAME} --increment=patch",
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} sample3_one_nested.txt",
+        "target/release/${CARGO_MAKE_CRATE_NAME} sample3_one_nested.txt",
     ]
 
     [tasks.run_rel4]
-    description = "target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor"
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} sample4_three_nested.txt"
     clear = true
     script = [
-        "echo target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor",
-        "target/release/${CARGO_MAKE_CRATE_NAME} --increment=minor",
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} sample4_three_nested.txt",
+        "target/release/${CARGO_MAKE_CRATE_NAME} sample4_three_nested.txt",
     ]
 
     [tasks.run_rel5]
-    description = "target/release/${CARGO_MAKE_CRATE_NAME} --increment=blahblah"
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} sample5_no_ending.txt"
     clear = true
     script = [
-        "echo target/release/${CARGO_MAKE_CRATE_NAME} --increment=blahblah",
-        "target/release/${CARGO_MAKE_CRATE_NAME} --increment=blahblah",
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} sample5_no_ending.txt",
+        "target/release/${CARGO_MAKE_CRATE_NAME} sample5_no_ending.txt",
+    ]
+
+    [tasks.run_rel6]
+    description = "target/release/${CARGO_MAKE_CRATE_NAME} sample6_no_start.txt"
+    clear = true
+    script = [
+        "echo target/release/${CARGO_MAKE_CRATE_NAME} sample6_no_start.txt",
+        "target/release/${CARGO_MAKE_CRATE_NAME} sample6_no_start.txt",
     ]
 
     [tasks.doc]
